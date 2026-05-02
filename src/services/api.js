@@ -1,11 +1,19 @@
 import axios from 'axios';
 
-const API_URL = 'https://buddyofcare.com/api';
+const API_URL = import.meta.env.VITE_API_URL ?? '/api';
 
 const api = axios.create({
   baseURL: API_URL,
   headers: { 'Content-Type': 'application/json' },
 });
+
+export const setAuthToken = (token) => {
+  if (token) {
+    api.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else {
+    delete api.defaults.headers.common.Authorization;
+  }
+};
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
@@ -16,8 +24,11 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const status = error.response?.status;
+    const requestUrl = error.config?.url || '';
+    if (status === 401 && !requestUrl.includes('/auth/login') && !requestUrl.includes('/auth/register')) {
       localStorage.removeItem('token');
+      delete api.defaults.headers.common.Authorization;
       window.location.href = '/login';
     }
     return Promise.reject(error);
