@@ -15,6 +15,18 @@ export const setAuthToken = (token) => {
   }
 };
 
+export const saveToken = (token) => {
+  if (token) {
+    console.debug('[auth] Saving token', token);
+    localStorage.setItem('token', token);
+    setAuthToken(token);
+  } else {
+    console.debug('[auth] Removing token');
+    localStorage.removeItem('token');
+    setAuthToken(null);
+  }
+};
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) config.headers.Authorization = `Bearer ${token}`;

@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext, useEffect } from 'react';
-import { authService, setAuthToken } from '../services/api';
+import { authService, saveToken, setAuthToken } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initAuth = async () => {
       const token = localStorage.getItem('token');
+      console.debug('[auth] initAuth token', token);
       if (token) {
         setAuthToken(token);
         try {
@@ -29,22 +30,24 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     const data = await authService.login(credentials);
-    localStorage.setItem('token', data.access_token);
-    setAuthToken(data.access_token);
+    const token = data?.access_token || data?.token;
+    console.debug('[auth] login response', { data, token });
+    if (!token) {
+      throw new Error('Login response did not include an access token');
+    }
+    saveToken(token);
     try {
       const userData = await authService.getMe();
       setUser(userData);
       return userData;
     } catch (error) {
-      localStorage.removeItem('token');
-      setAuthToken(null);
+      saveToken(null);
       throw error;
     }
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    setAuthToken(null);
+    saveToken(null);
     setUser(null);
   };
 
