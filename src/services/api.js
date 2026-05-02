@@ -7,6 +7,21 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
+const setHeaderAuthorization = (headers, token) => {
+  if (!headers) return;
+  const value = token ? `Bearer ${token}` : null;
+
+  // Axios v1 uses AxiosHeaders (has .set/.delete/.get). Fall back to plain object.
+  if (typeof headers.set === 'function' && typeof headers.delete === 'function') {
+    if (value) headers.set('Authorization', value);
+    else headers.delete('Authorization');
+    return;
+  }
+
+  if (value) headers.Authorization = value;
+  else delete headers.Authorization;
+};
+
 export const setAuthToken = (token) => {
   if (token) {
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -29,12 +44,16 @@ export const saveToken = (token) => {
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (!config.headers) config.headers = {};
+  setHeaderAuthorization(config.headers, token);
   if (import.meta.env.DEV) {
+    const authorization = typeof config.headers?.get === 'function'
+      ? config.headers.get('Authorization')
+      : config.headers?.Authorization;
     console.debug('[auth] request', {
       method: config.method,
       url: config.url,
-      authorization: config.headers?.Authorization,
+      authorization,
     });
   }
   return config;
