@@ -42,7 +42,9 @@ export const AuthProvider = ({ children }) => {
       return userData;
     } catch (error) {
       console.error('[auth] getMe after login failed', error.response?.data || error);
-      saveToken(null);
+      if (error.response?.status === 401) {
+        saveToken(null);
+      }
       throw error;
     }
   };
