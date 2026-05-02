@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://buddyofcare.com/api/v1';
+const API_URL = 'https://buddyofcare.com/api';
 
 const api = axios.create({
   baseURL: API_URL,
