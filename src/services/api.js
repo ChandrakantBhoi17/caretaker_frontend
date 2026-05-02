@@ -30,6 +30,13 @@ export const saveToken = (token) => {
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (import.meta.env.DEV) {
+    console.debug('[auth] request', {
+      method: config.method,
+      url: config.url,
+      authorization: config.headers?.Authorization,
+    });
+  }
   return config;
 }, (error) => Promise.reject(error));
 
@@ -39,7 +46,7 @@ api.interceptors.response.use(
     const status = error.response?.status;
     const requestUrl = error.config?.url || '';
     if (status === 401 && !requestUrl.includes('/auth/login') && !requestUrl.includes('/auth/register')) {
-      console.debug('[auth] 401 response, clearing token', requestUrl);
+      console.debug('[auth] 401 response, clearing token', requestUrl, error.response?.data);
       localStorage.removeItem('token');
       delete api.defaults.headers.common.Authorization;
     }

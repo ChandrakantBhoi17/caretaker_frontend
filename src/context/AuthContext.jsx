@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }) => {
       setUser(userData);
       return userData;
     } catch (error) {
+      console.error('[auth] getMe after login failed', error.response?.data || error);
       saveToken(null);
       throw error;
     }
