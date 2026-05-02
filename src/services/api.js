@@ -39,9 +39,9 @@ api.interceptors.response.use(
     const status = error.response?.status;
     const requestUrl = error.config?.url || '';
     if (status === 401 && !requestUrl.includes('/auth/login') && !requestUrl.includes('/auth/register')) {
+      console.debug('[auth] 401 response, clearing token', requestUrl);
       localStorage.removeItem('token');
       delete api.defaults.headers.common.Authorization;
-      window.location.href = '/login';
     }
     return Promise.reject(error);
   }
