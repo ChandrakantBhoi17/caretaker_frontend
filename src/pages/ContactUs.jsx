@@ -2,7 +2,7 @@ import React from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { contactService } from '../services/api';
 
-const ContactUs = () => {
+const ContactUs = ({ embedded = false }) => {
   const [sending, setSending] = React.useState(false);
   const [status, setStatus] = React.useState({ type: '', msg: '' });
   const statusRef = React.useRef(null);
@@ -35,13 +35,19 @@ const ContactUs = () => {
   };
 
   return (
-    <div style={{ padding: '3.5rem 0' }}>
+    <div id="contact" style={{ padding: embedded ? '2.5rem 0' : '3.5rem 0' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
           <div className="badge badge-purple" style={{ marginBottom: '0.75rem' }}>Support</div>
-          <h1 style={{ fontSize: '2.75rem' }}>
-            Contact <span className="text-gradient">Us</span>
-          </h1>
+          {embedded ? (
+            <h2 style={{ fontSize: 'clamp(1.85rem, 4.5vw, 2.5rem)' }}>
+              Contact <span className="text-gradient">Us</span>
+            </h2>
+          ) : (
+            <h1 style={{ fontSize: '2.75rem' }}>
+              Contact <span className="text-gradient">Us</span>
+            </h1>
+          )}
           <p style={{ color: '#6B7280', maxWidth: '680px', margin: '0.75rem auto 0', lineHeight: 1.8 }}>
             Have a question about bookings, verification, or becoming a caretaker? Send us a message and we’ll get back quickly.
           </p>
@@ -92,7 +98,11 @@ const ContactUs = () => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', color: '#374151' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <div className="badge badge-purple"><Phone size={14} /> Phone</div>
-                  <span style={{ fontWeight: 600 }}>+91 00000 00000</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', fontWeight: 600 }}>
+                    <span>+91 96920 76679</span>
+                    <span>+91 96920 87652</span>
+                    <span>+91 96920 72365</span>
+                  </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <div className="badge badge-purple"><Mail size={14} /> Email</div>

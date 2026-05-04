@@ -6,6 +6,7 @@ import {
   CheckCircle2, Users, Award, Phone, Globe,
   Baby, Brain, Zap, ChevronRight
 } from 'lucide-react';
+import ContactUs from './ContactUs';
 
 const SERVICES = [
   { icon: <Users size={28} />, title: 'Elderly Care', desc: 'Compassionate support for seniors — from daily routines to companionship.', color: '#7C3AED' },
@@ -240,6 +241,11 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* ─── CONTACT US ─── */}
+      <section id="contact-us" style={{ padding: 'clamp(3rem, 6vw, 4.5rem) 0', background: 'white' }}>
+        <ContactUs embedded />
+      </section>
+
       {/* ─── FOOTER ─── */}
       <footer style={{ background: '#1A1523', color: 'white', padding: '4rem 0 2rem' }}>
         <div className="container">
@@ -254,7 +260,12 @@ const LandingPage = () => {
               <p style={{ color: '#9CA3AF', fontSize: '0.9rem', lineHeight: 1.6 }}>Because every life deserves tender care. Professional. Compassionate. Always by your side.</p>
               <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.25rem', alignItems: 'center' }}>
                 <Phone size={16} color="#9CA3AF" />
-                <span style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>+91 98613 54361</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                  <span style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>+91 98613 54361</span>
+                  <span style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>+91 96920 76679</span>
+                  <span style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>+91 96920 87652</span>
+                  <span style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>+91 96920 72365</span>
+                </div>
               </div>
               <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', alignItems: 'center' }}>
                 <Globe size={16} color="#9CA3AF" />
