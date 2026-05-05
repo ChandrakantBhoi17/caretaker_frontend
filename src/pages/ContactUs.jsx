@@ -106,7 +106,7 @@ const ContactUs = ({ embedded = false }) => {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <div className="badge badge-purple"><Mail size={14} /> Email</div>
-                  <span style={{ fontWeight: 600 }}>support@buddyofcare.com</span>
+                  <span style={{ fontWeight: 600 }}>info@buddyofcare.com</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <div className="badge badge-purple"><MapPin size={14} /> Office</div>
