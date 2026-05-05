@@ -255,7 +255,7 @@ const LandingPage = () => {
                 <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg, #7C3AED, #EC4899)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Heart size={18} color="white" fill="white" />
                 </div>
-                <span style={{ fontSize: '1.2rem', fontWeight: 800 }}>buddyofcare.com</span>
+                <span style={{ fontSize: '1.2rem', fontWeight: 800 }}>info@buddyofcare.com</span>
               </div>
               <p style={{ color: '#9CA3AF', fontSize: '0.9rem', lineHeight: 1.6 }}>Because every life deserves tender care. Professional. Compassionate. Always by your side.</p>
               <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.25rem', alignItems: 'center' }}>
